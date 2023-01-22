@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Imprima&family=Sevillana&display=swap');
+
+/* ........................... */
+
+:root {
+    --defaultFont: 'Imprima', sans-serif;
+}
+
+
+/* ............................. */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.purpleText {
+    color: #524FD5;
+}
+
+
+/* ............................. */
+
+div.heading {
+    display: flex;
+    align-items: center;
+    background-color: #FFF5F1;
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+}
+
+.slogon {
+    text-align: end;
+    font-family: 'Sevillana', cursive;
+    color: rgb(226, 167, 4);
+}
+
+div.logo {
+    margin-right: 3rem;
+}
+
+img.logo {
+    width: 6rem;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: 'Chivo Mono', monospace;
+    font-style: italic;
+    padding-top: 2rem;
+}
+
+
+/* ............................. */
+
+.description {
+    margin: auto;
+    max-width: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0rem 1rem;
+    margin-bottom: 4rem;
+}
+
+.description>img {
+    width: 200px;
+}
+
+.description>p {
+    font-size: 1.8rem;
+    font-family: var(--defaultFont);
+    text-align: center;
+}
+
+
+/* ............................ */
+
+.links_heading {
+    margin-left: 1rem;
+    font-family: var(--defaultFont);
+}
+
+
+/* ............................. */
+
+.link_img>img {
+    width: 150px;
+}
+
+.link_description {
+    margin-left: 1.3rem;
+    padding: 1rem;
+    font-family: var(--defaultFont);
+}
+
+.link_description>h3 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.link_description>p {
+    margin-left: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.link_description>a {
+    margin-left: 0.5rem;
+}
+
+.link_description>a>button {
+    min-width: 6rem;
+    min-height: 2rem;
+    border-radius: 1rem;
+    border: none;
+    color: white;
+    background-color: #524FD5;
+}
+
+.writer_link {
+    max-width: 530px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-radius: 1.7rem;
+    margin: 2rem 1rem;
+    background-color: #FFF5F1;
+}
+
+
+/* ............................. */
+
+@media (max-width: 390px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    .description {
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
+    div.logo {
+        margin-right: 1rem;
+    }
+    .link_img>img {
+        width: 130px;
+    }
+    .link_description>a>button {
+        min-width: 4rem;
+    }
+    .link_description {
+        margin-left: 0rem;
+    }
+}
+
+@media (min-width: 800px) {
+    h1 {
+        font-size: 5rem;
+        margin-left: 7rem;
+    }
+    .logo>img {
+        width: 200px;
+    }
+    .slogon {
+        font-size: 1.5rem;
+    }
+    /* ............................. */
+    .description>img {
+        width: 400px;
+    }
+    .description>p {
+        font-size: 3rem;
+    }
+    .description {
+        max-width: 900px;
+    }
+    /* ............................ */
+    .links_heading {
+        font-size: 3rem;
+    }
+    .link_img>img {
+        width: 300px;
+    }
+    .link_description>h3 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+    .link_description>p {
+        font-size: 2rem;
+    }
+    .link_description>a>button {
+        width: 8rem;
+        height: 3rem;
+        margin-top: 1rem;
+        border-radius: 3rem;
+        font-size: 1.5rem;
+    }
+    .link_description>a {
+        margin-left: 40%;
+    }
+    .writer_link {
+        max-width: 800px;
+    }
+    .writers_links {
+        margin-left: 5rem;
+    }
+}
