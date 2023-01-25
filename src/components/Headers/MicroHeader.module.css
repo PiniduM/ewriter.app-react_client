@@ -1,0 +1,30 @@
+div.heading {
+    display: flex;
+    max-width: 30rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+}
+
+.slogon {
+    text-align: end;
+    font-family: 'Sevillana', cursive;
+    color: rgb(226, 167, 4);
+}
+
+img.logo {
+    width: 6rem;
+}
+
+.h1 {
+    font-size: 3rem;
+    font-family: 'Chivo Mono', monospace;
+    font-style: italic;
+    padding-top: 2rem;
+}
+.header {
+    background-color: #FFF5F1;
+    margin-bottom: 4rem;
+}
