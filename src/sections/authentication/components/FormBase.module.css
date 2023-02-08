@@ -4,8 +4,8 @@ body {
 
 
 .base {
-    max-width: 22rem;
-    min-height: 30rem;
+    max-width: 30rem;
+    min-height: 35rem;
     margin : 3rem auto;
     border-radius: 1rem;
     background-color: #FFF5F1;

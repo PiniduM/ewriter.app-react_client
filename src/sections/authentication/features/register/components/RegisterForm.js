@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import FormBase from "../../../components/FormBase.js";
 
@@ -7,14 +9,16 @@ import classes from "./RegisterForm.module.css";
 
 const RegisterForm = () => {
   const uNameRef = useRef();
-  const emailRef = useRef();
+  const gmailRef = useRef();
   const pwdRef = useRef();
   const confirmPwdRef = useRef();
 
-  const [validUname, setValidUname] = useState(false);
-  const [validemail, setValidemail] = useState(false);
-  const [validPwd, setValidPwd] = useState(false);
+  const [validUname, setValidUname] = useState(undefined);
+  const [validgmail, setValidgmail] = useState(undefined);
+  const [validPwd, setValidPwd] = useState(undefined);
   const [pwdConfirmed, setPwdConfirmed] = useState(undefined);
+
+  const navigate = useNavigate();
 
   const handleUsername = () => {
     const usernameRegex = /^(?=.*\d)(?=.*[a-z])[a-zA-Z\d]{6,20}$/;
@@ -28,16 +32,18 @@ const RegisterForm = () => {
     }
   };
 
-  const handleemail = () => {
-    const emailRegex =
-      /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  const handlegmail = () => {
 
-    if (emailRegex.test(emailRef.current.value)) {
-      setValidemail(true);
-      console.log("email valid");
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|googlemail)\.com$/i;
+    //const emailRegex =
+      ///^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+    if (gmailRegex.test(gmailRef.current.value)) {
+      setValidgmail(true);
+      console.log("gmail valid");
     } else {
-      setValidemail(false);
-      console.log("email invalid");
+      setValidgmail(false);
+      console.log("gmail invalid");
     }
   };
 
@@ -74,47 +80,52 @@ const RegisterForm = () => {
     e.preventDefault();
 
     handleUsername();
-    handleemail();
+    handlegmail();
     handlePwd();
     handleConfirmPwd();
 
+    if(!(validUname && validPwd && validgmail && pwdConfirmed))
+    return;
+
+
+    const gmail= gmailRef.current.value;
+    const username= uNameRef.current.value;
+    const password= pwdRef.current.value;
+
     const user = {
-      email: emailRef.current,
-      userName: uNameRef.current,
-      password: pwdConfirmed.current,
+      gmail,
+      username,
+      password,
     };
+
+    axios
+      .post("http://localhost:5001/ewriter/register", user)
+      .then((result) => {
+        console.log(result);
+        alert(result.data + "  result");
+        if (result.data.gmail) {
+          const expires = new Date(Date.now() + 10 * 60 * 1000);
+          Cookies.set("verifying_gmail",result.data.gmail,{expires});
+          console.log("gmail saved");
+          navigate("/verifygmail");
+        } else {
+          alert(`something went wrong please try again,
+          contact developers through ewriterinfo@gmail.com if needed`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data + " err");
+      });
   };
 
   return (
     <FormBase>
+      {/* <div className={classes.loadingAnimation}></div>  skipped*/}
       <form className={classes.form} onSubmit={handleSubmit}>
         <h1 className={classes.topic}>Register</h1>
         <div
           className={`${classes.inputBlock} ${
-            validemail ? classes.validEmail : classes.inValidEmail
-          }`}
-        >
-          <label
-            htmlFor="email"
-            className={`${classes.emailInputLable} ${classes.inputLable}`}
-          >
-            email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            ref={emailRef}
-            onBlur={handleemail}
-            className={`${classes.emailInput} ${classes.txtInput}`}
-          />
-          <p className={classes.emailWarning}>
-            Please enter a valid email address
-          </p>
-        </div>
-        <div
-          className={`${classes.inputBlock} ${classes.uNameInputBlock} ${
             validUname ? classes.validUname : classes.inValidUname
           }`}
         >
@@ -133,10 +144,38 @@ const RegisterForm = () => {
             onBlur={handleUsername}
             className={`${classes.uNameInput} ${classes.txtInput}`}
           />
-          <p className={classes.uNameWarning}>
-            Please enter a valid username which contains 6-20 characters
-            including at least a letter and a number
-          </p>
+          {validUname === false && (
+            <p className={classes.uNameWarning}>
+              Please enter a valid username which contains 6-20 characters
+              including at least a letter and a number
+            </p>
+          )}
+        </div>
+        <div
+          className={`${classes.inputBlock} ${classes.gmailInputBlock} ${
+            validgmail ? classes.validgmail : classes.inValidgmail
+          }`}
+        >
+          <label
+            htmlFor="gmail"
+            className={`${classes.gmailInputLable} ${classes.inputLable}`}
+          >
+            Gmail:
+          </label>
+          <input
+            type="email"
+            id="gmail"
+            name="gmail"
+            required
+            ref={gmailRef}
+            onBlur={handlegmail}
+            className={`${classes.gmailInput} ${classes.txtInput}`}
+          />
+          {validgmail === false && (
+            <p className={classes.gmailWarning}>
+              Please enter a valid gmail address
+            </p>
+          )}
         </div>
         <div
           className={`${classes.inputBlock} ${
@@ -159,10 +198,12 @@ const RegisterForm = () => {
             onBlur={handlePwd}
             className={`${classes.pwdInput} ${classes.txtInput}`}
           />
-          <p className={classes.pwdWarning}>
-            Please enter a valid password which contains 6-25 characters
-            including atleast a letter and a number
-          </p>
+          {validPwd === false && (
+            <p className={classes.pwdWarning}>
+              Please enter a valid password which contains 6-25 characters
+              including at least a letter and a number
+            </p>
+          )}
         </div>
         <div
           className={`${classes.inputBlock} ${
@@ -185,7 +226,9 @@ const RegisterForm = () => {
             onBlur={handleConfirmPwd}
             className={`${classes.confirmPwdInput} ${classes.txtInput}`}
           />
-          <p className={classes.confirmPwdWarning}>Passwords do not match!</p>
+          {pwdConfirmed === false && (
+            <p className={classes.confirmPwdWarning}>Passwords do not match!</p>
+          )}
         </div>
         <div className={classes.submitRow}>
           <input type="submit" value="Register" className={classes.submitBtn} />

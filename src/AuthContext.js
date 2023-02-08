@@ -1,23 +1,25 @@
-import React, { createContext, useState } from "react"
-
+import Cookies from "js-cookie";
+import React, { createContext, useState } from "react";
 
 const AuthContext = createContext();
 
-
 const AuthContextProvider = (props) => {
-    const [userType,setUserType] = useState("unlogged");
+  const [loginToken, setLoginToken] = useState(
+    Cookies.get("ewriter_login_token")
+  );
 
+  const [profileCreated,setProfileCreated] = useState(false);
 
-    const contextValue = {
-        userType: {get:userType, set: setUserType}
-    };
+  const contextValue = {
+    loginToken: {get: loginToken,set: setLoginToken},
+    profileCreated: {get: profileCreated, set: setProfileCreated}
+  };
 
-    return (
-        <AuthContext.Provider value={contextValue} >
-            {props.children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={contextValue}>
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
 
-
-export {AuthContext, AuthContextProvider}
+export { AuthContext, AuthContextProvider };

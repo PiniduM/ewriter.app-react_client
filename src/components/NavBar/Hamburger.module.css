@@ -10,20 +10,20 @@
     "1"
     "2"
     "3";
-    gap: 5px;
-    height: 40px;
-    width: 42px;
-    padding: 8px;
-    margin: 5px 8px;
-    border-radius: 5px;
+    gap: 0.3125rem;
+    height: 2.5rem;
+    width: 2.625rem;
+    padding: 0.5rem;
+    margin: 0.3125rem 0.5rem;
+    border-radius: 0.3125rem;
     border: 1px solid black;
 }
 
 .hamburger > .bar {
     display: block;
-    width: 25px;
-    height: 3px;
-    border-radius: 5px;
+    width: 1.5625rem;
+    height: 0.1875rem;
+    border-radius: 0.3125rem;
     background-color: rgb(255, 153, 0);
     justify-self: center;
     transition: 0.3s ease-in-out;
@@ -57,7 +57,7 @@
     transition-delay: 0s;
 }
 .hamburgerActive > .slant {
-    width: 25px;
+    width: 1.5625rem;
     transition-delay: 0.3s;
 }
 

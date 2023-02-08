@@ -1,6 +1,21 @@
+/* common styles ......................... */
 html {
     font-family: sans-serif;
 }
+
+table,tr,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td {
+    vertical-align: middle;
+}
+
+
+a{
+    display: contents;
+}
+
 
 @media (min-width: 800px) {
     html {

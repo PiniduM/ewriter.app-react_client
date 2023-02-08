@@ -1,32 +1,11 @@
-import React, {useContext} from "react";
-
-import {AuthContext } from "../../AuthContext";
-import NavBar from "../../components/NavBar/NavBar";
+import Header from "../../components/Headers/Header.js";
 
 import classes from "./HomePage.module.css"
 
 const HomePage = () => {
-console.log(useContext(AuthContext).userType.get);
-
   return (
     <div className={classes.body}>
-      <div className={classes.header}>
-        <div className={classes.heading}>
-          <div className={classes.logo}>
-            <img
-              src="/resources/eWriterLogo1Black.png"
-              alt="eWriter logo"
-              className={classes.logo}
-            />
-          </div>
-          <div className={classes.topic}>
-            <h1 className={classes.h1}>e Writer</h1>
-            <p className={classes.slogon}>Writing made easy</p>
-          </div>
-        </div>
-        <NavBar />
-      </div>
-
+      <Header />
       <div className={classes.description}>
         <p>
           power up your writings with
