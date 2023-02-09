@@ -19,13 +19,6 @@
     padding-left: 1rem;
 }
 
-.inputBlock.validIdentifier > .identifierWarning{
-    display: none;
-}
-
-.inputBlock.validPwd > .pwdWarning{
-    display: none;
-}
 
 .inputBlock > p {
     text-align: center;
@@ -33,6 +26,9 @@
     color: rgb(228, 15, 15);
 }
 
+.incorrectWarning {
+    margin-top: 1rem;
+}
 
 
 .inputBlock {

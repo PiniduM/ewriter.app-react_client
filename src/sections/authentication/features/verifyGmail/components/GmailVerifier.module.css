@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,14 +39,14 @@
 }
 
 .verifyButton {
-    min-width: 10rem;
-    min-height: 3rem;
-    border: none;
-    border-radius: 2rem;
-    margin: 1rem 0rem;
-    font-size: 1.2rem;
-    color: #ffffff;
-    background-color: #524FD5;
+  min-width: 10rem;
+  min-height: 3rem;
+  border: none;
+  border-radius: 2rem;
+  margin: 1rem 0rem;
+  font-size: 1.2rem;
+  color: #ffffff;
+  background-color: #524fd5;
 }
 
 .warning {
@@ -56,6 +57,6 @@
 }
 .resendLink {
   font-size: 0.8rem;
-  color: #3366CC;
+  color: #3366cc;
   text-decoration: underline;
 }

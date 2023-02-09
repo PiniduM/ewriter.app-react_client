@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "../../components/Headers/Header.js";
 
 import classes from "./HomePage.module.css"
@@ -24,12 +25,12 @@ const HomePage = () => {
               write amaizing essays <br />
               with the help of AI
             </p>
-            <a href="./sub/Essay_writer/client/Essaywriter/public/index.html">
+            <Link to="/essaywriter">
               <button className={classes.linkButton}>Let's go</button>
-            </a>
+            </Link>
           </div>
           <div className={classes.link_img}>
-            <img src="./resources/smilingGirl1.png" alt="smart girl" />
+            <img src="./resources/excitedGirl1.png" alt="smart girl" />
           </div>
         </div>
       </div>

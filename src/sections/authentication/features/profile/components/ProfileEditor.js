@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import Select from "react-select";
+import FormSubmitLoader from "../../../../../components/Loaders/FormSubmitLoader";
 import classes from "./ProfileEditor.module.css";
 
 const ProfileEditor = (props) => {
+  const [displayLoader, setDisplayLoader] = useState(false);
 
   const navigate = useNavigate();
-
 
   const loginToken = props.loginToken;
   const profileData = props.profileData;
@@ -38,7 +39,7 @@ const ProfileEditor = (props) => {
       }));
       setCountriesOptions(countriesOptions);
     }
-    
+
     fetchData();
   }, []);
 
@@ -62,6 +63,10 @@ const ProfileEditor = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    setDisplayLoader(true);
+
     const newUpdates = {};
 
     const newFullName = newFullNameRef.current.value;
@@ -70,21 +75,20 @@ const ProfileEditor = (props) => {
     if (newFullName !== currentFullName) newUpdates.fullName = newFullName;
     if (newAge !== currentAge) newUpdates.age = newAge;
     if (selectedGender !== currentGender) newUpdates.gender = selectedGender;
-    if (selectedCountry !== currentCountry) newUpdates.country = selectedCountry;
+    if (selectedCountry !== currentCountry)
+      newUpdates.country = selectedCountry;
     if (selectedOccupation !== currentOccupation)
       newUpdates.occupation = selectedOccupation;
     console.log(newUpdates);
 
-    if (Object.entries(newUpdates).length === 0) alert("nothing to update");
-    else  {
-      axios.post("http://localhost:5002/ewriter/updateprofile",{newUpdates,loginToken})
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() =>  navigate("/redirect",{state : "/profile"}));
+    if (Object.entries(newUpdates).length === 0) navigate("/redirect", { state: "/profile" })
+    else {
+      axios
+        .post("http://localhost:5002/ewriter/updateprofile", {
+          newUpdates,
+          loginToken,
+        })
+        .finally(() => navigate("/redirect", { state: "/profile" }));
     }
   };
 
@@ -163,12 +167,14 @@ const ProfileEditor = (props) => {
           </button>
           <input
             type="submit"
-            name="save"
+            id="submitBtn"
+            name="submit"
             value="save"
             className={classes.saveBtn}
           />
         </div>
       </form>
+      {displayLoader && <FormSubmitLoader />}
     </div>
   );
 };

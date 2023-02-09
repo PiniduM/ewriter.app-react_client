@@ -11,8 +11,11 @@ import {
   occupationOptions,
   genderOptions,
 } from "../functions/optionLists";
+import FormSubmitLoader from "../../../../../components/Loaders/FormSubmitLoader";
 
 const ProfileCreator = () => {
+
+  const [displayLoader, setDisplayLoader] = useState(false);
   const navigate = useNavigate();
   
   const loginToken = useContext(AuthContext).loginToken.get;
@@ -46,6 +49,9 @@ const ProfileCreator = () => {
     };
 
     const saveProfileInfo = () => {
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      setDisplayLoader(true);
       const profileData = {
         fullName,
         age,
@@ -74,7 +80,13 @@ const ProfileCreator = () => {
             alert("something went wrong, please try again later.");
             navigate("/");
           }
-        });
+        })
+        .finally(() => {
+          setDisplayLoader(false);
+          setTimeout(() => {
+            submitBtn.disabled = false;
+          }, 1000);
+        })
     };
 
     return (
@@ -88,7 +100,7 @@ const ProfileCreator = () => {
             Next
           </button>
         ) : (
-          <button className={classes.saveBtn} onClick={saveProfileInfo}>
+          <button className={classes.saveBtn} id="submitBtn" onClick={saveProfileInfo}>
             Save
           </button>
         )}
@@ -238,6 +250,7 @@ const ProfileCreator = () => {
           </ul>
         </div>
         <SlidesNavBar current={true} />
+        {displayLoader &&  <FormSubmitLoader />}
       </>
     );
   };

@@ -4,10 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import FormBase from "../../../components/FormBase.js";
+import FormSubmitLoader from "../../../../../components/Loaders/FormSubmitLoader.js";
 
 import classes from "./RegisterForm.module.css";
 
 const RegisterForm = () => {
+
+  const [displayLoader, setDisplayLoader] = useState(false);
+
   const uNameRef = useRef();
   const gmailRef = useRef();
   const pwdRef = useRef();
@@ -77,6 +81,8 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = (e) => {
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
     e.preventDefault();
 
     handleUsername();
@@ -84,9 +90,11 @@ const RegisterForm = () => {
     handlePwd();
     handleConfirmPwd();
 
-    if(!(validUname && validPwd && validgmail && pwdConfirmed))
-    return;
-
+    if(!(validUname && validPwd && validgmail && pwdConfirmed)) {
+      submitBtn.disabled = false;
+      return;
+    }
+    setDisplayLoader(true);
 
     const gmail= gmailRef.current.value;
     const username= uNameRef.current.value;
@@ -101,22 +109,27 @@ const RegisterForm = () => {
     axios
       .post("http://localhost:5001/ewriter/register", user)
       .then((result) => {
-        console.log(result);
-        alert(result.data + "  result");
         if (result.data.gmail) {
           const expires = new Date(Date.now() + 10 * 60 * 1000);
           Cookies.set("verifying_gmail",result.data.gmail,{expires});
           console.log("gmail saved");
           navigate("/verifygmail");
         } else {
-          alert(`something went wrong please try again,
+          alert(`Sorry something went wrong please try again,
           contact developers through ewriterinfo@gmail.com if needed`);
         }
       })
       .catch((err) => {
         console.log(err);
-        alert(err.response.data + " err");
-      });
+        alert(`Sorry something went wrong please try again,
+        contact developers through ewriterinfo@gmail.com if needed`);
+      })
+      .finally(() => {
+        setDisplayLoader(false);
+        setTimeout(() => {
+          submitBtn.disabled = false;
+        }, 1000);
+      })
   };
 
   return (
@@ -231,12 +244,13 @@ const RegisterForm = () => {
           )}
         </div>
         <div className={classes.submitRow}>
-          <input type="submit" value="Register" className={classes.submitBtn} />
+          <input type="submit" id="submitBtn" value="Register" className={classes.submitBtn} />
           <p>
             Alredy have a account? <Link to="/login">login</Link>
           </p>
         </div>
       </form>
+        {displayLoader && <FormSubmitLoader />}
     </FormBase>
   );
 };

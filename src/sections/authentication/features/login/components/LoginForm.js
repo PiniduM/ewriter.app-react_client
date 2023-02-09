@@ -7,19 +7,24 @@ import FormBase from "../../../components/FormBase.js";
 
 import classes from "./LoginForm.module.css";
 import { AuthContext } from "../../../../../AuthContext.js";
+import FormSubmitLoader from "../../../../../components/Loaders/FormSubmitLoader.js";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
 
+  const [displayLoader, setDisplayLoader] = useState(false);
+  const [incorrectWarning, setIncorrectWarning] = useState(false);
+  
   const setLoginToken = useContext(AuthContext).loginToken.set;
   const identifierRef = useRef();
   const pwdRef = useRef();
-
+  
   const [validIdentifier, setValidIdentifier] = useState(undefined);
   const [validPwd, setValidPwd] = useState(undefined);
-
+  
   const usernameRegex = /^(?=.*\d)(?=.*[a-z])[a-zA-Z\d]{6,20}$/;
   const gmailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|googlemail)\.com$/i;
+  
 
   const handleIdentifier = () => {
     if (
@@ -48,12 +53,17 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.target.disabled = true;
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
 
     handleIdentifier();
     handlePwd();
 
-    if (!(validIdentifier && validPwd)) return;
+    if (!(validIdentifier && validPwd)) {
+      submitBtn.disabled = false;
+      return;
+    }
+    setDisplayLoader(true);
 
     const identifier = identifierRef.current.value;
     const password = pwdRef.current.value;
@@ -67,15 +77,14 @@ const RegisterForm = () => {
       .post("http://localhost:5001/ewriter/login", user)
       .then((result) => {
         console.log(result);
-        alert(result.data + "  result");
         if (result.data.username) {
           console.log("logged in");
           const token = result.data.token;
           const expires = new Date(Date.now() + 1 * 60 * 60 * 1000);
-          Cookies.set("ewriter_login_token",token, { expires });
+          Cookies.set("ewriter_login_token", token, { expires });
           setLoginToken(token);
-          if(result.data.profileCreated !== "y") {
-            navigate("/createprofile")
+          if (result.data.profileCreated !== "y") {
+            navigate("/createprofile");
             return;
           }
           navigate("/");
@@ -92,17 +101,23 @@ const RegisterForm = () => {
       })
       .catch((err) => {
         console.log(err);
-
-        if (err.code === "ERR_NETWORK")
-          alert("sorry something went wrong, please try again in few minutes");
-        else alert(err.response.data + " err");
+        if (err.response) {
+          // only receive wrong_username_pwd
+          setIncorrectWarning(true);
+        } else
+          alert(`Sorry something went wrong please try again,
+        contact developers through ewriterinfo@gmail.com if needed`);
+      })
+      .finally(() => {
+        setDisplayLoader(false);
+        setTimeout(() => {
+          submitBtn.disabled = false;
+        }, 1000);
       });
-    setTimeout(() => (e.target.disabled = false), 2000);
   };
 
   return (
     <FormBase>
-      {/* <div className={classes.loadingAnimation}></div>  skipped*/}
       <form className={classes.form} onSubmit={handleSubmit}>
         <h1 className={classes.topic}>Login</h1>
         <div
@@ -119,7 +134,6 @@ const RegisterForm = () => {
             type="text"
             id="Identifire"
             name="Identifire"
-            required
             ref={identifierRef}
             onBlur={handleIdentifier}
             className={`${classes.identifierInput} ${classes.txtInput}`}
@@ -145,7 +159,6 @@ const RegisterForm = () => {
             type="password"
             id="pwd"
             name="pwd"
-            required
             autoComplete="off"
             ref={pwdRef}
             onBlur={handlePwd}
@@ -154,13 +167,24 @@ const RegisterForm = () => {
           {validPwd === false && (
             <p className={classes.pwdWarning}>password invalid !</p>
           )}
+          {incorrectWarning && (
+            <p className={classes.incorrectWarning}>
+              Incorrect username or password
+            </p>
+          )}
         </div>
         <div className={classes.submitRow}>
-          <input type="submit" value="Login" className={classes.submitBtn} />
+          <input
+            type="submit"
+            id="submitBtn"
+            value="Login"
+            className={classes.submitBtn}
+          />
           <p>
             Don't have an account? <Link to="/login">Register</Link>
           </p>
         </div>
+        {displayLoader && <FormSubmitLoader />}
       </form>
     </FormBase>
   );
