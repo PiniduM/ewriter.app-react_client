@@ -95,7 +95,7 @@ const ProfileEditor = (props) => {
   return (
     <div className={classes.editor}>
       <img
-        src="/resources/accountIcon.png"
+        src={props.profileIcon}
         alt="profile icon"
         className={classes.profileIcon}
       />

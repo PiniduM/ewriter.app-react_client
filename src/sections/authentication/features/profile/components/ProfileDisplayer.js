@@ -11,7 +11,7 @@ const ProfileDisplayer = (props) => {
 
   return (
     <div className={classes.displayer}>
-      <img src="/resources/accountIcon.png" alt="profile icon" className={classes.profileIcon} />
+      <img src={props.profileIcon} alt="profile icon" className={classes.profileIcon} />
       <h1 className={classes.topic}>{profileData.username}</h1>
       <ul className={classes.detailContainer}>
         <li className={classes.detail}>Full Name: {profileData.fullName}</li>

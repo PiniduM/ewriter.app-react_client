@@ -1,24 +1,41 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-
-import RedirectPage from "./sections/authentication/pages/RedirectPage.js";
 import { AuthContextProvider } from "./AuthContext.js";
-import HomePage from "./sections/home/HomePage.js";
-import RegisterPage from "./sections/authentication/pages/RegisterPage.js";
-import LoginPage from "./sections/authentication/pages/LoginPage.js";
+import "./App.css";
 import LogoutPage from "./sections/authentication/pages/LogoutPage.js";
-import CreateProfilePage from "./sections/authentication/pages/createProfilePage.js";
 
-
+//import RedirectPage from "./sections/authentication/pages/RedirectPage.js";
+//import HomePage from "./sections/home/HomePage.js";
+//import RegisterPage from "./sections/authentication/pages/RegisterPage.js";
+//import LoginPage from "./sections/authentication/pages/LoginPage.js";
+//import CreateProfilePage from "./sections/authentication/pages/createProfilePage.js";
 
 //import ProfilePage from "./sections/authentication/pages/ProfilePage.js";
 //import VerifyGmail from "./sections/authentication/pages/VerifyGmailPage.js";
-
-const VerifyGmail = lazy(() => import("./sections/authentication/pages/VerifyGmailPage.js"));
+const HomePage = lazy(() => import("./sections/home/HomePage.js"));
+const RegisterPage = lazy(() =>
+  import("./sections/authentication/pages/RegisterPage.js")
+);
+const LoginPage = lazy(() =>
+  import("./sections/authentication/pages/LoginPage.js")
+);
+//const LogoutPage = lazy(() =>
+//  import("./sections/authentication/pages/LoginPage.js")
+//);
+const VerifyGmail = lazy(() =>
+  import("./sections/authentication/pages/VerifyGmailPage.js")
+);
 
 const ProfilePage = lazy(() =>
   import("./sections/authentication/pages/ProfilePage.js")
+);
+
+const CreateProfilePage = lazy(() =>
+  import("./sections/authentication/pages/createProfilePage.js")
+);
+
+const RedirectPage = lazy(() =>
+  import("./sections/authentication/pages/RedirectPage.js")
 );
 
 function App() {

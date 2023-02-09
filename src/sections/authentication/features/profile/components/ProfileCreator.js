@@ -259,7 +259,7 @@ const ProfileCreator = () => {
     <div className={classes.creator}>
       <div className={classes.heading}>
         <img
-          src="/resources/accountIcon.png"
+          src="/resources/eWriterLogo1Black.png"
           alt="accountIcon"
           className={classes.profileIcon}
         />

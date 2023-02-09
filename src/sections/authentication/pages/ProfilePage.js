@@ -7,6 +7,7 @@ import ProfileDisplayer from "../features/profile/components/ProfileDisplayer.js
 import ProfileEditor from "../features/profile/components/ProfileEditor.js";
 import getProfileData from "../features/profile/functions/getProfileData.js";
 
+import profileIcon from "../../../assets/profileIcon.png";
 const ProfilePage = () => {
   const navigate = useNavigate();
   const loginToken = useContext(AuthContext).loginToken.get;
@@ -15,35 +16,45 @@ const ProfilePage = () => {
   }, [navigate, loginToken]);
 
   const [renderingComponent, setRenderingComponent] = useState("displayer");
-  const [profileData,setProfileData] = useState({});
+  const [profileData, setProfileData] = useState({});
 
-  const [editCount,setEditCount] = useState(0);
+  const [editCount, setEditCount] = useState(0);
   const refresh = () => {
-    setEditCount(prev => prev + 1)
-    console.log("edited")
-  }
+    setEditCount((prev) => prev + 1);
+    console.log("edited");
+  };
 
   useEffect(() => {
-    console.log("effecting")
+    console.log("effecting");
     getProfileData(loginToken)
       .then((profileData) => {
         setProfileData(profileData);
       })
       .catch((err) => {
-        if(err.response.data === "no_profile") navigate("/createprofile");
+        if (err.response.data === "no_profile") navigate("/createprofile");
 
         //handle unknown errors and user credential errors
       });
-  },[loginToken,navigate,editCount])
+  }, [loginToken, navigate, editCount]);
 
   return (
     <div>
       <Header />
       {renderingComponent === "displayer" && (
-        <ProfileDisplayer profileData={profileData} setter={setRenderingComponent} />
+        <ProfileDisplayer
+          profileData={profileData}
+          setter={setRenderingComponent}
+          profileIcon={profileIcon}
+        />
       )}
       {renderingComponent === "editor" && (
-        <ProfileEditor profileData={profileData} setter={setRenderingComponent} loginToken={loginToken} refresher={refresh}/>
+        <ProfileEditor
+          profileData={profileData}
+          setter={setRenderingComponent}
+          loginToken={loginToken}
+          refresher={refresh}
+          profileIcon={profileIcon}
+        />
       )}
     </div>
   );
