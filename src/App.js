@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import EssayWriterRoutes from "./sections/essayWriter/EssayWriterRoutes.js";
 import { AuthContextProvider } from "./AuthContext.js";
 import "./App.css";
 import LogoutPage from "./sections/authentication/pages/LogoutPage.js";
@@ -38,6 +39,9 @@ const RedirectPage = lazy(() =>
   import("./sections/authentication/pages/RedirectPage.js")
 );
 
+//essay writer routes
+
+
 function App() {
   return (
     <AuthContextProvider>
@@ -63,6 +67,7 @@ function App() {
               ></Route>
               <Route path="/redirect" exact element={<RedirectPage />}></Route>
             </Routes>
+            <EssayWriterRoutes />
           </Suspense>
         </BrowserRouter>
       </div>

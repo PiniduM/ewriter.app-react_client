@@ -137,9 +137,10 @@ img.logo {
 
 /* ............................. */
 
-@media (max-width: 390px) {
+@media (max-width: 540px) {
     .description > img {
-        max-width: 90vw;
+        width: 90vw;
+        max-width: 300px;
     }
     .description {
         flex-direction: column-reverse;

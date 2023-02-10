@@ -3,9 +3,9 @@ import Hamburger from "./Hamburger";
 
 import Cookies from "js-cookie";
 
-import classes from "./NavBar.module.css";
+import classes from "./MiniNavBar.module.css";
 
-const NavBar = (props) => {
+const MiniNavBar = (props) => {
   let loggedIn = props.loggedIn;
 
   if (Cookies.get("ewriter_login_token")) {
@@ -22,21 +22,9 @@ const NavBar = (props) => {
     <div className={classes.navBar}>
       <Hamburger />
       <ul id="navMenu" className={classes.navList}>
+        <div></div>
         <NavLink className={classes.navItem} style={styleActive} to="/">
           <li>Home</li>
-        </NavLink>
-        <NavLink className={classes.navItem} style={styleActive} to="/essaywriter">
-          <li>essay&nbsp;writer</li>
-        </NavLink>
-        <NavLink className={classes.navItem} style={styleActive} to="/aboutus">
-          <li>About&nbsp;us</li>
-        </NavLink>
-        <NavLink
-          className={classes.navItem}
-          style={styleActive}
-          to="/contactus"
-        >
-          <li>Contact&nbsp;us</li>
         </NavLink>
         {loggedIn && (
           <NavLink className={classes.navItem} style={styleActive} to="/trunk">
@@ -62,9 +50,10 @@ const NavBar = (props) => {
             <li>Register</li>
           </NavLink>
         )}
+        <div></div>
       </ul>
     </div>
   );
 };
 
-export default NavBar;
+export default MiniNavBar;

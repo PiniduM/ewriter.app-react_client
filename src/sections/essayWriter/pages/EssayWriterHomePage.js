@@ -1,4 +1,16 @@
-const EssayWriterHomePage = () => {
+import MiniHeader from "../components/Headers/MiniHeader.js";
+import FeaturesBlock from "../sections/home/components/featuresBlock.js";
+import IntroBlock from "../sections/home/components/IntroBlock.js";
 
-    return (<h1>Essay writer Home</h1>)
-}
+
+const EssayWriterHomePage = () => {
+  return (
+    <>
+      <MiniHeader />
+      <IntroBlock />
+      <FeaturesBlock />
+    </>
+  );
+};
+
+export default EssayWriterHomePage;

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Hamburger.module.css";
 
-import navBarClasses from "./NavBar.module.css";
+import navBarClasses from "./MiniNavBar.module.css";
 
 const Hamburger = () => {
   const toggleNavBar = () => {
