@@ -24,8 +24,8 @@ const MiniHeader = () => {
         </div>
       </Link>
       <div></div>
-      <nav className={classes.navBar}>
-        <MiniNavBar loggedIn={loggedIn} />
+      <nav>
+        <MiniNavBar />
       </nav>
       {loggedIn && (
         <div className={classes.profileIcon} onClick={toggleLinks}>

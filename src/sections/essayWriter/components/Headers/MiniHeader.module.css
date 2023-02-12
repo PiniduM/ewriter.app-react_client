@@ -2,7 +2,7 @@
     width: 100%;
     margin-bottom: 2rem;
     display: grid;
-    grid-template-columns: auto 1fr auto;;  
+    grid-template-columns: auto 1fr auto auto;  
     background-color: #FFF5F1;
     align-items: center;
 }
@@ -15,9 +15,10 @@ img.logo {
 
 .profileIcon {
     position: relative;
+    align-self: self-start;
     width: 3rem;
     height: 3rem;
-    margin: 1rem 0.5rem 0rem 0.5rem;
+    margin: 1rem 1rem;
 }
 
 .profileIconImg {
@@ -52,4 +53,9 @@ img.logo {
     justify-content: center;
     border: 1px solid black;
     border-collapse: collapse;
+}
+
+.navBar {
+    align-self: self-start;
+    margin-top: 1rem;
 }

@@ -1,14 +1,13 @@
 import { NavLink } from "react-router-dom";
-import Hamburger from "./Hamburger";
-
-import Cookies from "js-cookie";
+import { useContext } from "react";
+import { AuthContext } from "../../../../AuthContext.js";
 
 import classes from "./MiniNavBar.module.css";
 
 const MiniNavBar = (props) => {
   let loggedIn = props.loggedIn;
 
-  if (Cookies.get("ewriter_login_token")) {
+  if (useContext(AuthContext).loginToken.get) {
     loggedIn = true;
   }
 
@@ -19,40 +18,26 @@ const MiniNavBar = (props) => {
   };
 
   return (
-    <div className={classes.navBar}>
-      <Hamburger />
-      <ul id="navMenu" className={classes.navList}>
-        <div></div>
-        <NavLink className={classes.navItem} style={styleActive} to="/">
-          <li>Home</li>
+    <ul id="navMenu" className={classes.navList}>
+      <NavLink className={classes.navLink} style={styleActive} to="/">
+        <li className={classes.navItem}>Home</li>
+      </NavLink>
+      {loggedIn && (
+        <NavLink className={classes.navLink} style={styleActive} to="/trunk">
+          <li className={classes.navItem}>Trunk</li>
         </NavLink>
-        {loggedIn && (
-          <NavLink className={classes.navItem} style={styleActive} to="/trunk">
-            <li>Trunk</li>
-          </NavLink>
-        )}
-        {loggedIn && (
-          <NavLink className={classes.navItem} style={styleActive} to="/logout">
-            <li>Log&nbsp;out</li>
-          </NavLink>
-        )}
-        {!loggedIn && (
-          <NavLink className={classes.navItem} style={styleActive} to="/login">
-            <li>Login</li>
-          </NavLink>
-        )}
-        {!loggedIn && (
-          <NavLink
-            className={classes.navItem}
-            style={styleActive}
-            to="/register"
-          >
-            <li>Register</li>
-          </NavLink>
-        )}
-        <div></div>
-      </ul>
-    </div>
+      )}
+      {!loggedIn && (
+        <NavLink className={classes.navLink} style={styleActive} to="/login">
+          <li className={classes.navItem}>Login</li>
+        </NavLink>
+      )}
+      {!loggedIn && (
+        <NavLink className={classes.navLink} style={styleActive} to="/register">
+          <li className={classes.navItem}>Register</li>
+        </NavLink>
+      )}
+    </ul>
   );
 };
 

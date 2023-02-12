@@ -24,7 +24,7 @@ const IntroBlock = () =>  {
               <p className={classes.description}>
                 The best essay writer<br />powered by AI
               </p>
-              <Link to="/essaywriter_writer">
+              <Link to="/essaywriter/writer">
                 <button className={classes.button}> Let 's go</button>
               </Link>
           </div>
