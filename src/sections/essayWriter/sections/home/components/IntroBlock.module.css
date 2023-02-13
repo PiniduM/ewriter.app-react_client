@@ -5,13 +5,13 @@
 }
 
 
-.logo > img {
-    display: none;
-    max-width: 7rem;
+.logo {
+    max-width: 4rem;
+    margin-right: 2rem;
 }
 
 .productName {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .companyName {
@@ -23,8 +23,8 @@
 .heading {
     margin-bottom: 3rem;
     display: grid;
-    grid-template-columns: 0rem auto 0rem;
-    align-items: baseline;
+    grid-template-columns: auto auto 0rem;
+    align-items: center;
     justify-content: center;
 }
 

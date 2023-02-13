@@ -250,7 +250,7 @@ const RegisterForm = () => {
           </p>
         </div>
       </form>
-        {displayLoader && <FormSubmitLoader />}
+        {displayLoader && <FormSubmitLoader message={"Loading..."}/>}
     </FormBase>
   );
 };

@@ -184,7 +184,7 @@ const RegisterForm = () => {
             Don't have an account? <Link to="/login">Register</Link>
           </p>
         </div>
-        {displayLoader && <FormSubmitLoader />}
+        {displayLoader && <FormSubmitLoader message={"Loading..."}/>}
       </form>
     </FormBase>
   );

@@ -1,0 +1,75 @@
+.displayer {
+    white-space: pre-line;
+    font-size: 16px;
+    line-height: 32px;
+    background-color: #FFF5F1;
+    padding: 1rem 1rem 3rem 1rem;
+}
+
+.reqInfoList {
+    margin: 0rem 0rem 1rem 1rem;
+}
+.reqInfo {
+    margin-bottom: 1rem;
+}
+
+
+.resultViewer {
+    margin-bottom: 2rem;
+}
+
+.resultPara {
+    background-color: rgb(255, 255, 255);
+    padding: 0rem 1rem 1rem 2rem;
+    user-select: none;
+}
+.dragger {
+    display: block;
+    height: 1px;
+    margin-bottom: -60px;
+}
+
+
+
+.resultOptions {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "deleteBtn gap downloadBtn";
+    margin: 0rem 1rem;
+}
+
+.actionBtn {
+    min-height: 2.5rem;
+  min-width: 7rem;
+  border-radius: 0.4rem;
+  padding: 0rem 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: 1px 1px;
+}
+
+.deleteBtn{
+  background-color: #dc1414;
+}
+
+.downloadBtn{
+  background-color: #00d81d;
+  grid-area: downloadBtn;
+}
+
+.actionBtn:hover {
+    box-shadow: 3px 3px;
+}
+
+.loader {
+    position: relative;
+    margin-bottom: 2rem;
+    min-height: 20rem;
+}
+
+
+@media (min-width: 300px) {
+    .displayer{
+        font-size: 1.3rem;
+    }
+}

@@ -174,7 +174,7 @@ const ProfileEditor = (props) => {
           />
         </div>
       </form>
-      {displayLoader && <FormSubmitLoader />}
+      {displayLoader && <FormSubmitLoader message={"Loading..."}/>}
     </div>
   );
 };

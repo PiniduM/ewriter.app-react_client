@@ -5,7 +5,8 @@ import { WriterContext } from "./WriterContext";
 //import Displayer from "./components/displayer/Displayer";
 
 import classes from "./Writer.module.css";
-import Customizer from "./features/customizer/Customizer";
+import Customizer from "./features/customizer/Customizer.js";
+import Displayer from "./features/displayer/Displayer.js";
 
 const Writer = () => {
   // detailColecter replaced with displayer to facilitate creating displayer
@@ -32,13 +33,9 @@ const Writer = () => {
   const result = useContext(WriterContext).result.get;
 
   if (resultPending || result) {
-    return <h1>displayer</h1>;
+    return <Displayer />;
   } else {
-    return (
-      <div className={classes.customizer}>
-        <Customizer />
-      </div>
-    );
+    return <Customizer />;
   }
 };
 

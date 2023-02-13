@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
 const EssayWriterHomePage = lazy(() => import("./pages/EssayWriterHomePage"));
-const WriterPage = lazy(() => import("./pages/Essaywriter_writerPage.js"));
+const WriterPage = lazy(() => import("./pages/writerPage.js"));
 
 const EssayWriterRoutes = () => {
   return (

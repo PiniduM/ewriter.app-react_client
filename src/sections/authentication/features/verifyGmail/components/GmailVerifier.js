@@ -80,7 +80,7 @@ const GmailVerifier = () => {
           Resend a verification code
         </p>
       </form>
-      {displayLoader && <FormSubmitLoader />}
+      {displayLoader && <FormSubmitLoader message="Verifying..."/>}
     </div>
   );
 };

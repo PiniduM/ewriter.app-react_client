@@ -1,0 +1,35 @@
+.radio{
+    display: flex;
+}
+
+.radioLable {
+    padding: 1rem;
+}
+
+
+.reqTypeRadios{
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.countSelector >div > select {
+    background-color:  rgb(128, 128, 128,0.5);
+    min-height: 2rem;
+    min-width: 4rem;
+}
+
+.countLable {
+    margin-right: 1rem;
+}
+
+.reqType {
+    margin-bottom: 2rem;
+}
+
+/* common */
+.prompt {
+    margin-bottom: 1.5rem;
+}
