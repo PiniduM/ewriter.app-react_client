@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Select from "react-select";
+
+import {
+  genderOptions,
+  getCountriesOptions,
+  occupationOptions,
+} from "../functions/optionLists";
 import FormSubmitLoader from "../../../../../components/Loaders/FormSubmitLoader";
 import classes from "./ProfileEditor.module.css";
 
@@ -30,30 +35,10 @@ const ProfileEditor = (props) => {
   const [countriesOptions, setCountriesOptions] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("https://restcountries.com/v2/all");
-      const data = await res.json();
-      const countriesOptions = data.map((country) => ({
-        value: country.name,
-        label: country.name,
-      }));
-      setCountriesOptions(countriesOptions);
-    }
-
-    fetchData();
+    getCountriesOptions()
+      .then((options) => setCountriesOptions(options))
+      .catch((err) => setCountriesOptions([]));
   }, []);
-
-  const ocupationOptions = [
-    { value: "collage", label: "collage Student" },
-    { value: "university", label: "university student" },
-    { value: "teacher", label: "teacher" },
-    { value: "parent", label: "parent" },
-  ];
-  const genderOptions = [
-    { value: "male", label: "male" },
-    { value: "female", label: "female" },
-    { value: "other", label: "other" },
-  ];
 
   const setRenderingComponent = props.setter;
   const displayDisplayer = (e) => {
@@ -81,7 +66,8 @@ const ProfileEditor = (props) => {
       newUpdates.occupation = selectedOccupation;
     console.log(newUpdates);
 
-    if (Object.entries(newUpdates).length === 0) navigate("/redirect", { state: "/profile" })
+    if (Object.entries(newUpdates).length === 0)
+      navigate("/redirect", { state: "/profile" });
     else {
       axios
         .post("http://localhost:5002/ewriter/updateprofile", {
@@ -149,7 +135,7 @@ const ProfileEditor = (props) => {
         <div className={classes.inputBlock}>
           <label className={classes.inputLabel}>Occupation:</label>
           <Select
-            options={ocupationOptions}
+            options={occupationOptions}
             defaultValue={{
               value: currentOccupation,
               label: currentOccupation,
@@ -174,7 +160,7 @@ const ProfileEditor = (props) => {
           />
         </div>
       </form>
-      {displayLoader && <FormSubmitLoader message={"Loading..."}/>}
+      {displayLoader && <FormSubmitLoader message={"Loading..."} />}
     </div>
   );
 };

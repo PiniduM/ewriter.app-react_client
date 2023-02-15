@@ -46,7 +46,7 @@
 }
 
 .logoutBtn,.editBtn,.closeBtn {
-    min-width: 5rem;
+    padding: 0rem 0.5rem;
     min-height: 2rem;
     font-weight: bold;
     font-size: 0.9rem;
@@ -59,14 +59,8 @@
     }
 }
 
-@media (max-width: 290px) {
-    .logoutBtn,.editBtn,.closeBtn {
-        min-width: 0rem;
-        padding: 0rem 0.5rem;
-    }
-    .editBtn {
-        margin-right: 0.1rem;
-    }
+@media (max-width: 660px) {
+
     .displayer {
         margin: 0rem 1rem;
     }

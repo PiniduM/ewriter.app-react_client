@@ -81,7 +81,7 @@ img.logo {
     }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 464px) {
     .slogon{
         font-size: 0.9;
     }

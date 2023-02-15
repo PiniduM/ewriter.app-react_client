@@ -1,20 +1,22 @@
 import axios from "axios";
 import React, { useContext } from "react";
+import Cookies from "js-cookie";
 import { WriterContext } from "../../../WriterContext.js";
-//import fetchReqData from "../../functions/fetchReqData";
+
 
 import classes from "./DetailCollectingForm.module.css";
 import RequirementTypeInput from "./inputs/RequirementTypeInput.js";
 import TopicInput from "./inputs/TopicInput.js";
 
 const DetailCollectingForm = (props) => {
-  const setResultPending = useContext(WriterContext).resultPending.set;
+  const setpendingResult = useContext(WriterContext).pendingResult.set;
   const setResult = useContext(WriterContext).result.set;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const reqData = new FormData(e.target);
+    const topic = reqData.get("topic");
     const reqDataObj = {
-      topic: reqData.get("topic"),
+      topic,
       count: reqData.get("count"),
     };
     const isEssay = reqData.get("reqType") === "essay";
@@ -25,22 +27,16 @@ const DetailCollectingForm = (props) => {
 
     axios
       .post(path, reqDataObj)
-      .then((result) => {
+      .then((response) => {
         console.log("fetching")
-        setResult(result.data);
+        setResult(response.data);
+        Cookies.set("result",response.data);
+        Cookies.set("resultTopic",topic);
       })
       .catch((err) => console.log(err));
 
-    // fetchReqData(reqDataObj, "http://localhost:5000/unlogged/writer")
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     setResult(responseData);
-    //   })
-    //   .catch((err) => console.log(err));
-    setResultPending({
-      topic: reqData.get("topic"),
-      reqType: reqData.get("reqType"),
-      count: reqData.get("count"),
+    setpendingResult({
+      topic
     });
   };
 

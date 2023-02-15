@@ -22,6 +22,7 @@ a{
 
 html {
     font-size: 1.2rem;
+    font-size: 3.8vw;
     font-family: 'Imprima', sans-serif;
 }
 
@@ -38,7 +39,7 @@ html {
 
 @media (max-width: 464px) {
     html {
-        font-size: 4vw;
+        font-size: 3.8vw;
     }
 }
 /* @media (max-width: 320px) {
