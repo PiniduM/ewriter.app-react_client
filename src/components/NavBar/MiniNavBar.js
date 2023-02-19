@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../../../../AuthContext.js";
+import { AuthContext } from "../../AuthContext.js";
 
 import classes from "./MiniNavBar.module.css";
 

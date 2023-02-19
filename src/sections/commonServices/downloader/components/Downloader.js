@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import getPdfUrl from "./functions/GetPdfUrl";
+import getPdfUrl from "../functions/GetPdfUrl.js";
 import classes from "./Downloader.module.css";
 
 const Downloader = (props) => {

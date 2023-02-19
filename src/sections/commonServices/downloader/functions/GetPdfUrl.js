@@ -3,7 +3,7 @@ import axios from "axios";
 const getPdfUrl = async (data) => {
   try {
     const result = await axios.post(
-      "http://localhost:5003/nonpremium/givepdf",
+      "http://localhost:5002/give_pdf",
       data,
       { responseType: "blob" }
     );

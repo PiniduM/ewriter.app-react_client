@@ -22,44 +22,42 @@ const NavBar = (props) => {
     <div className={classes.navBar}>
       <Hamburger />
       <ul id="navMenu" className={classes.navList}>
-        <NavLink className={classes.navItem} style={styleActive} to="/">
-          <li>Home</li>
+        <NavLink style={styleActive} to="/">
+          <li className={classes.navItem}>Home</li>
         </NavLink>
-        <NavLink className={classes.navItem} style={styleActive} to="/essaywriter">
-          <li>essay&nbsp;writer</li>
+        <NavLink style={styleActive} to="/essaywriter">
+          <li className={classes.navItem}>essay&nbsp;writer</li>
         </NavLink>
-        <NavLink className={classes.navItem} style={styleActive} to="/aboutus">
-          <li>About&nbsp;us</li>
+        <NavLink style={styleActive} to="/aboutus">
+          <li className={classes.navItem}>About&nbsp;us</li>
         </NavLink>
         <NavLink
-          className={classes.navItem}
           style={styleActive}
           to="/contactus"
         >
-          <li>Contact&nbsp;us</li>
+          <li className={classes.navItem}>Contact&nbsp;us</li>
         </NavLink>
         {loggedIn && (
-          <NavLink className={classes.navItem} style={styleActive} to="/trunk">
-            <li>Trunk</li>
+          <NavLink style={styleActive} to="/e_drive">
+            <li className={classes.navItem}>eDrive</li>
           </NavLink>
         )}
         {loggedIn && (
-          <NavLink className={classes.navItem} style={styleActive} to="/logout">
-            <li>Log&nbsp;out</li>
+          <NavLink style={styleActive} to="/logout">
+            <li className={classes.navItem}>Log&nbsp;out</li>
           </NavLink>
         )}
         {!loggedIn && (
-          <NavLink className={classes.navItem} style={styleActive} to="/login">
-            <li>Login</li>
+          <NavLink style={styleActive} to="/login">
+            <li className={classes.navItem}>Login</li>
           </NavLink>
         )}
         {!loggedIn && (
           <NavLink
-            className={classes.navItem}
             style={styleActive}
             to="/register"
           >
-            <li>Register</li>
+            <li className={classes.navItem}>Register</li>
           </NavLink>
         )}
       </ul>

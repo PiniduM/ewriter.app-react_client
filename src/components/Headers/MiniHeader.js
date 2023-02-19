@@ -1,10 +1,10 @@
-import NavBar from "../NavBar/NavBar";
+import MiniNavBar from "../NavBar/MiniNavBar.js";
 import { Link } from "react-router-dom";
-import classes from "./Header.module.css";
+import classes from "./MiniHeader.module.css";
 import { useContext } from "react";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../AuthContext.js";
 
-const Header = () => {
+const MiniHeader = () => {
   const loggedIn = useContext(AuthContext).loginToken.get ? true : false;
 
   const toggleLinks = () => {
@@ -14,17 +14,19 @@ const Header = () => {
 
   return (
     <div className={classes.header}>
-      <div className={classes.logo}>
-        <img
-          src="/resources/eWriterLogo1Black.png"
-          alt="eWriter logo"
-          className={classes.logo}
-        />
-      </div>
-      <div className={classes.topic}>
-        <h1 className={classes.companyName}>e Writer</h1>
-        <p className={classes.slogon}>Writing made easy</p>
-      </div>
+      <Link to="/">
+        <div className={classes.logo}>
+          <img
+            src="/resources/eWriterLogo1Black.png"
+            alt="eWriter logo"
+            className={classes.logo}
+          />
+        </div>
+      </Link>
+      <div></div>
+      <nav>
+        <MiniNavBar />
+      </nav>
       {loggedIn && (
         <div className={classes.profileIcon} onClick={toggleLinks}>
           <img
@@ -42,11 +44,8 @@ const Header = () => {
           </div>
         </div>
       )}
-      <nav className={classes.navBar}>
-        <NavBar loggedIn={loggedIn} />
-      </nav>
     </div>
   );
 };
 
-export default Header;
+export default MiniHeader;

@@ -13,10 +13,11 @@
 }
 
 
-.navList > .navItem >li {
+.navItem {
   padding: 0.3rem 1.3rem;
   width: 100%;
   max-width: 14rem;
+  border-bottom: 3px solid transparent;
   text-align: center;
 }
 
@@ -39,7 +40,7 @@
     height: auto;
     flex-direction: row;
   }
-  .navList > .navItem > li:hover {
-    background-color: rgb(255, 187, 0);
+  .navItem:hover {
+    border-bottom: 3px solid rgb(255, 187, 0);
   }
 }

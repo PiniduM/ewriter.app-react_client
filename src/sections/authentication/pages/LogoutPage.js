@@ -9,7 +9,7 @@ const LogoutPage = () => {
 
   useEffect(() => {
     if (loginToken.get) {
-      Cookies.remove("ewriter_login_token");
+      Cookies.remove("ewriter_login_token",{path: "/"});
       loginToken.set(undefined);
     }
 

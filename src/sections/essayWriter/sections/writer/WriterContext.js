@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 const WriterContext = createContext();
 
 const WriterContextProvider = (props) => {
-  const [pendingResult, setpendingResult] = useState("");
+  const [pendingResult, setpendingResult] = useState(false);
   const [result, setResult] = useState(Cookies.get("result"));
 
   const contextValue = {
