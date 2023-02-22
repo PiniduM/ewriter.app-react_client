@@ -8,7 +8,8 @@ const EDrivePage = () => {
   const loginToken = useContext(AuthContext).loginToken.get;
   const navigate = useNavigate();
 
-  const [slots,setSlots] = useState({});
+  const [slots,setSlots] = useState();
+  console.log(slots);
 
   useEffect(() => {
     if(!loginToken) navigate("/login");

@@ -13,7 +13,7 @@ const Writer = () => {
   const pendingResult = useContext(WriterContext).pendingResult.get;
   const result = useContext(WriterContext).result.get;
 
-  if (pendingResult || result) {
+  if (result || pendingResult) {
     return <Displayer />;
   } else {
     return <Customizer />;

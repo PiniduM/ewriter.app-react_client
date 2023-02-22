@@ -5,8 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 import classes from "./SaveWindow.module.css";
 import SaveSlotList from "./saveSlotsList.js";
+import ConfirmationPopUp from "./ConfirmationPopUp.js";
+import LoginPopUp from "../../../../../../../components/PopUps/LoginPopUp.js";
 
 import selectableSlotClasses from "./SelectableSlot.module.css";
+import Backdrop from "../../../../../../../components/BackDrops/Backdrop.js";
 
 const SaveWindow = (props) => {
   const save = (e, slotId, writing) => {
@@ -68,34 +71,49 @@ const SaveWindow = (props) => {
     );
     currentSlelectedSlot.classList.add(selectableSlotClasses.selected_slot);
   }
+  if (!loginToken)
+    return (
+      <Backdrop>
+        <LoginPopUp toggler={setDisplaySaveWindow} />
+      </Backdrop>
+    );
 
   return (
-    <div className={classes.backdrop}>
-      <div className={classes.save_window}>
-        <h2 className={classes.heading}>
-          Save to <span className={classes.drive_name}>eDrive</span>
-        </h2>
-        <h3 className={classes.instruction}>
-          please select a slot to save your writing
-        </h3>
-        <SaveSlotList slots={slots} selectedSlotSetter={setSelectedSlot} />
-        <div className={classes.action_btn_row}>
-          <button
-            className={`${classes.btn} ${classes.cancel_btn}`}
-            onClick={() => cancel()}
-          >
-            cancel
-          </button>
-          <button
-            className={`${classes.btn} ${classes.save_btn}`}
-            onClick={(e) => save(e, selectedSlot.currentSlotId, writing)}
-          >
-            save
-          </button>
+    // default backdro does not wrok since content need to be scrolled
+    //<div className={classes.backdrop}>
+      <Backdrop>
+        <div className={classes.save_window}>
+          <h2 className={classes.heading}>
+            Save to <span className={classes.drive_name}>eDrive</span>
+          </h2>
+          <h3 className={classes.instruction}>
+            please select a slot to save your writing
+          </h3>
+          <SaveSlotList slots={slots} selectedSlotSetter={setSelectedSlot} />
+          <div className={classes.action_btn_row}>
+            <button
+              className={`${classes.btn} ${classes.cancel_btn}`}
+              onClick={() => cancel()}
+            >
+              cancel
+            </button>
+            <button
+              className={`${classes.btn} ${classes.save_btn}`}
+              onClick={(e) => save(e, selectedSlot.currentSlotId, writing)}
+            >
+              save
+            </button>
+          </div>
+          {replaceTry && (
+            <ConfirmationPopUp
+              selectedSlot={selectedSlot.currentSlotId}
+              writing={writing}
+              toggler={setReplaceTry}
+            />
+          )}
         </div>
-        {replaceTry && <h1> try to replace</h1>}
-      </div>
-    </div>
+        </Backdrop>
+    //</div>
   );
 };
 

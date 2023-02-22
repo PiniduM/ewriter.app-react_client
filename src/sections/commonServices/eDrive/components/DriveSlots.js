@@ -4,7 +4,9 @@ import classes from "./DriveSlots.module.css";
 
 const DriveSlots = (props) => {
   const slots = props.slots;
-  console.log(slots);
+
+  if(!slots) return (<></>);
+
 
   const slot1 = slots.slot1
   const slot2 = slots.slot2

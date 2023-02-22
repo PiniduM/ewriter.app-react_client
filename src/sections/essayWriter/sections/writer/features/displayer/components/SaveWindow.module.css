@@ -7,12 +7,21 @@
 }
 
 .save_window {
-  border-radius: 0.7rem;
-  margin: 5rem 2rem;
+  position: absolute;
+  top: 10vh;
+  max-height: 85vh;
+  overflow: scroll;
+  margin: 0rem 1rem;
+  justify-self: center;
   min-height: 30rem;
+  border-radius: 0.7rem;
   display: grid;
   grid-template-rows: auto 1fr auto;
   background-color: #fff5f1;
+}
+/* to provide a position relative  */
+.content_wrapper {
+
 }
 
 .heading {
@@ -53,8 +62,4 @@
 }
 .save_btn {
   background-color: rgb(36, 160, 237);
-}
-
-.label {
-  min-width: 20rem;
 }

@@ -8,12 +8,13 @@ import FormSubmitLoader from "../../../../../../components/Loaders/FormSubmitLoa
 import Cookies from "js-cookie";
 
 const Displayer = () => {
+  const [displaySaveWindow, setDisplaySaveWindow] = useState(false);
+
   const pendingResult = useContext(WriterContext).pendingResult.get;
   const result = useContext(WriterContext).result.get;
 
-  const [displaySaveWindow, setDisplaySaveWindow] = useState(false);
-
-  const topic = pendingResult.topic || Cookies.get("resultTopic");
+  const topic = result.topic || pendingResult.topic;
+  const body = result.body;
 
   const deleteResult = async () => {
     Cookies.remove("result", { path: "/" });
@@ -29,14 +30,10 @@ const Displayer = () => {
         <li className={classes.reqInfo}>Count: {pendingResult.count}</li>
       </ul> */}
       <h2 className={classes.topic}>{topic}</h2>
-      {result ? (
+      {body ? (
         <>
           <div className={classes.resultViewer}>
-            <p className={classes.resultPara}>
-              <span className={classes.dragger}></span>
-              <br />
-              {result}
-            </p>
+            {body}
           </div>
           <div className={classes.resultOptions}>
             <Link to="/essaywriter">
@@ -49,7 +46,7 @@ const Displayer = () => {
             </Link>
             <Link
               to="/download"
-              state={{ topic: pendingResult.topic, content: result }}
+              state={{ topic: topic, content: body}}
             >
               <button className={`${classes.actionBtn} ${classes.downloadBtn}`}>
                 Download
@@ -62,17 +59,17 @@ const Displayer = () => {
               Save
             </button>
           </div>
+          {displaySaveWindow && (
+            <SaveWindow
+              writing={{ topic, body }}
+              toggler={setDisplaySaveWindow}
+            />
+          )}
         </>
       ) : (
         <div className={classes.loader}>
           <FormSubmitLoader message={"Writing"} />
         </div>
-      )}
-      {displaySaveWindow && (
-        <SaveWindow
-          writing={{ topic, body: result }}
-          toggler={setDisplaySaveWindow}
-        />
       )}
     </div>
   );

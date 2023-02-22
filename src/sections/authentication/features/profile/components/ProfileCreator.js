@@ -14,10 +14,9 @@ import {
 import FormSubmitLoader from "../../../../../components/Loaders/FormSubmitLoader";
 
 const ProfileCreator = () => {
-
   const [displayLoader, setDisplayLoader] = useState(false);
   const navigate = useNavigate();
-  
+
   const loginToken = useContext(AuthContext).loginToken.get;
   const setProfileCreated = useContext(AuthContext).profileCreated.set;
 
@@ -74,8 +73,8 @@ const ProfileCreator = () => {
           if (err.response.data === "already_created") {
             alert(
               "you have Already created a profile,if you want, you can edit your profile details"
-              );
-              navigate("/profile");
+            );
+            navigate("/profile");
           } else {
             alert("something went wrong, please try again later.");
             navigate("/");
@@ -86,22 +85,41 @@ const ProfileCreator = () => {
           setTimeout(() => {
             submitBtn.disabled = false;
           }, 1000);
-        })
+        });
     };
 
     return (
-      <div className={classes.navBtns}>
-        {/*add close btn if necessary */}
-        <button className={classes.navBtn} onClick={handleGoBack}>
-          Previous
-        </button>
-        {slideNo !== 6 ? (
-          <button className={classes.navBtn} onClick={handleGoForward}>
-            Next
+      <div className={classes.nav_btns}>
+        {/*close btn added.but not aware of possible concerns*/}
+        {slideNo === 0 ? (
+          <button
+            className={`${classes.btn} ${classes.cancel_btn}`}
+            onClick={() => navigate("/")}
+          >
+            Cancel
           </button>
         ) : (
-          <button className={classes.saveBtn} id="submitBtn" onClick={saveProfileInfo}>
+          <button
+            className={`${classes.btn} ${classes.navBtn}`}
+            onClick={handleGoBack}
+          >
+            Previous
+          </button>
+        )}
+        {slideNo === 6 ? (
+          <button
+            className={`${classes.btn} ${classes.saveBtn}`}
+            id="submitBtn"
+            onClick={saveProfileInfo}
+          >
             Save
+          </button>
+        ) : (
+          <button
+            className={`${classes.btn} ${classes.navBtn}`}
+            onClick={handleGoForward}
+          >
+            Next
           </button>
         )}
       </div>
@@ -250,7 +268,7 @@ const ProfileCreator = () => {
           </ul>
         </div>
         <SlidesNavBar current={true} />
-        {displayLoader &&  <FormSubmitLoader />}
+        {displayLoader && <FormSubmitLoader />}
       </>
     );
   };

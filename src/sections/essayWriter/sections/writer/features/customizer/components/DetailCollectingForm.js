@@ -28,10 +28,9 @@ const DetailCollectingForm = (props) => {
     axios
       .post(path, reqDataObj)
       .then((response) => {
-        console.log("fetching")
-        setResult(response.data);
-        Cookies.set("result",response.data);
-        Cookies.set("resultTopic",topic);
+        const result = {topic,body: response.data};
+        setResult(result);
+        Cookies.set("result",JSON.stringify(result));
       })
       .catch((err) => console.log(err));
 

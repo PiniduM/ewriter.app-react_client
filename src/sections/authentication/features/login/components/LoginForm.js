@@ -181,7 +181,7 @@ const RegisterForm = () => {
             className={classes.submitBtn}
           />
           <p>
-            Don't have an account? <Link to="/login">Register</Link>
+            Don't have an account? <Link to="/register">Register</Link>
           </p>
         </div>
         {displayLoader && <FormSubmitLoader message={"Loading..."}/>}

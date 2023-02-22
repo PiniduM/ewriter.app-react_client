@@ -1,11 +1,18 @@
 import Cookies from "js-cookie";
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const WriterContext = createContext();
 
 const WriterContextProvider = (props) => {
-  const [pendingResult, setpendingResult] = useState(false);
-  const [result, setResult] = useState(Cookies.get("result"));
+  //testing
+  //Cookies.set("result",JSON.stringify({topic: "Uses of water",body:"water is useful\nvery useful\n\nwe can drink water"}))
+
+  const oldResult = Cookies.get("result")
+    ? JSON.parse(Cookies.get("result"))
+    : false;
+
+  const [pendingResult, setpendingResult] = useState(false); //can't read properties of a undefined by can read properties of a false(return undefined);
+  const [result, setResult] = useState(oldResult);
 
   const contextValue = {
     pendingResult: { get: pendingResult, set: setpendingResult },
