@@ -37,7 +37,7 @@ const AuthRoutes = () => {
         <Route path="/verifygmail" exact element={<VerifyGmail />}></Route>
         <Route path="/profile" exact element={<ProfilePage />}></Route>
         <Route
-          path="/createprofile"
+          path="/create_profile"
           exact
           element={<CreateProfilePage />}
         ></Route>

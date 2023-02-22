@@ -17,7 +17,7 @@ const TopicInput = (props) => {
         {props.condition && (
           <p className={classes.condition}>
             Topic should contain less than 30 letters,increase the limit by getting a
-            premium subscription
+            premium subscription.{"(premium subscription is comming soon...)"}
           </p>
         )}
       </div>

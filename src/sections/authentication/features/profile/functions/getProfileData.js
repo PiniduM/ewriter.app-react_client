@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getProfileDetails = async (loginToken) => {
+const getProfileData = async (loginToken) => {
   try {
     const result = await axios.post(
       "http://localhost:5002/ewriter/giveprofiledata",
@@ -20,4 +20,4 @@ const getProfileDetails = async (loginToken) => {
   }
 };
 
-export default getProfileDetails;
+export default getProfileData;

@@ -16,6 +16,7 @@ const RegisterForm = () => {
   const [incorrectWarning, setIncorrectWarning] = useState(false);
   
   const setLoginToken = useContext(AuthContext).loginToken.set;
+  const setProfileCreated = useContext(AuthContext).profileCreated.set;
   const identifierRef = useRef();
   const pwdRef = useRef();
   
@@ -75,23 +76,26 @@ const RegisterForm = () => {
 
     axios
       .post("http://localhost:5001/ewriter/login", user)
-      .then((result) => {
-        console.log(result);
-        if (result.data.username) {
+      .then((response) => {
+        console.log(response);
+        if (response.data.username) {
           console.log("logged in");
-          const token = result.data.token;
+          const token = response.data.token;
           const expires = new Date(Date.now() + 1 * 60 * 60 * 1000);
           Cookies.set("ewriter_login_token", token, { expires });
           setLoginToken(token);
-          if (result.data.profileCreated !== "y") {
-            navigate("/createprofile");
+          if (response.data.profileCreated !== "y") {
+            navigate("/create_profile");
             return;
+          } else {
+            Cookies.set("profile_created", "T", { expires });
+            setProfileCreated(true);
           }
           navigate("/");
           return;
-        } else if (result.data.gmail) {
+        } else if (response.data.gmail) {
           const expires = new Date(Date.now() + 10 * 60 * 1000);
-          Cookies.set("verifying_gmail", result.data.gmail, { expires });
+          Cookies.set("verifying_gmail", response.data.gmail, { expires });
           console.log("gmail saved");
           navigate("/verifygmail");
         } else {

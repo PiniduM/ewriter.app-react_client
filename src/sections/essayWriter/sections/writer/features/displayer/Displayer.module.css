@@ -23,15 +23,13 @@
   margin-bottom: 2rem;
   background-color: rgb(255, 255, 255);
   padding: 0rem 1rem 1rem 2rem;
-  user-select: none;
   max-height: 80vh;
   overflow: scroll;
 }
-.dragger {
-  display: block;
-  height: 1px;
-  margin-bottom: -60px;
+::-webkit-scrollbar {
+  display: none;
 }
+
 
 .resultOptions {
   display: grid;
@@ -89,4 +87,3 @@
         grid-template-areas: "deleteBtn gap saveBtn downloadBtn";
     }
 }
-

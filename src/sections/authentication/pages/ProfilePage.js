@@ -25,13 +25,12 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    console.log("effecting");
     getProfileData(loginToken)
       .then((profileData) => {
         setProfileData(profileData);
       })
       .catch((err) => {
-        if (err.response.data === "no_profile") navigate("/createprofile");
+        if (err.response.data === "no_profile") navigate("/create_profile");
 
         //handle unknown errors and user credential errors
       });

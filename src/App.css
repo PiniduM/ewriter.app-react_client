@@ -19,6 +19,9 @@ td {
 a{
     display: contents;
 }
+.underline {
+    text-decoration: underline;
+}
 
 html {
     font-size: 1.2rem;
@@ -39,7 +42,7 @@ html {
 
 @media (max-width: 464px) {
     html {
-        font-size: 3.8vw;
+        font-size: 4vw;
     }
 }
 /* @media (max-width: 320px) {

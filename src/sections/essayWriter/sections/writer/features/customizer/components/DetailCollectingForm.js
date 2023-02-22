@@ -1,50 +1,66 @@
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { WriterContext } from "../../../WriterContext.js";
-
+import {AuthContext} from "../../../../../../../AuthContext.js";
+import {WriterContext} from "../../../WriterContext.js"
+import getProfileData from "../../../../../../authentication/features/profile/functions/getProfileData.js";
 
 import classes from "./DetailCollectingForm.module.css";
-import RequirementTypeInput from "./inputs/RequirementTypeInput.js";
 import TopicInput from "./inputs/TopicInput.js";
+import WordCountInput from "./inputs/WordsCountInput.js";
+import EssayTypeInput from "./inputs/EssayTypeInput.js";
 
-const DetailCollectingForm = (props) => {
+const DetailCollectingForm = () => {
+
+  const [profileData,setProfileData] = useState({});
+  const loginToken = useContext(AuthContext).loginToken.get;
+  useEffect(() => {
+    getProfileData(loginToken)
+      .then((profileData) => {
+        setProfileData(profileData);
+      })
+      .catch(() => {})
+  }, [loginToken,setProfileData]);
+
   const setpendingResult = useContext(WriterContext).pendingResult.set;
   const setResult = useContext(WriterContext).result.set;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const reqData = new FormData(e.target);
-    const topic = reqData.get("topic");
-    const reqDataObj = {
+
+    const form = e.target;
+    const topic = form.topic.value;
+    const type = form.essayType.value;
+    const count = form.wordsCount.value;
+    const reqData = {
       topic,
-      count: reqData.get("count"),
+      type,
+      count,
     };
-    const isEssay = reqData.get("reqType") === "essay";
+    if (type === "general") reqData.complexity = form.complexity.value;
+    else {
+      reqData.profileData = profileData;
+    }
 
-    const path = `http://localhost:5003/nonpremium/${
-      isEssay ? "writeaessay" : "givepoints"
-    }`;
-
+    console.log(reqData);
     axios
-      .post(path, reqDataObj)
+      .post("http://localhost:5003/nonpremium/writeaessay", reqData)
       .then((response) => {
-        const result = {topic,body: response.data};
+        const result = { topic, body: response.data };
         setResult(result);
-        Cookies.set("result",JSON.stringify(result));
+        Cookies.set("result", JSON.stringify(result));
       })
       .catch((err) => console.log(err));
 
     setpendingResult({
-      topic
+      topic,
     });
   };
 
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
-      <TopicInput condition={!props.premium} />
-      <div className={classes.inputGap}></div>
-      <RequirementTypeInput />
-
+      <TopicInput condition={true} />
+      <WordCountInput />
+      <EssayTypeInput />
       <div className={classes.writeButtonContainer}>
         <button type="submit" className={classes.writeButton}>
           write

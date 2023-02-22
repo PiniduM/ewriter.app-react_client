@@ -8,11 +8,13 @@ const AuthContextProvider = (props) => {
     Cookies.get("ewriter_login_token")
   );
 
-  const [profileCreated,setProfileCreated] = useState(false);
+  const [profileCreated, setProfileCreated] = useState(
+    Cookies.get("profile_created") === "T"
+  );
 
   const contextValue = {
-    loginToken: {get: loginToken,set: setLoginToken},
-    profileCreated: {get: profileCreated, set: setProfileCreated}
+    loginToken: { get: loginToken, set: setLoginToken },
+    profileCreated: { get: profileCreated, set: setProfileCreated },
   };
 
   return (

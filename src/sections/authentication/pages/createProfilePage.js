@@ -11,8 +11,10 @@ const CreateProfilePage = () => {
   const loginToken = useContext(AuthContext).loginToken.get;
   const profileCreated = useContext(AuthContext).profileCreated.get;
 
+  console.log(profileCreated)
   useEffect(() => {
-    if (!loginToken || profileCreated) navigate("/");
+    if (!loginToken) navigate("/login");
+    else if(profileCreated) navigate("/profile");
   }, [navigate,loginToken,profileCreated]);
 
   return (
