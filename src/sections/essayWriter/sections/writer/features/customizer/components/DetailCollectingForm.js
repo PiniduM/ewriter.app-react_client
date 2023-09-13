@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import {AuthContext} from "../../../../../../../AuthContext.js";
-import {WriterContext} from "../../../WriterContext.js"
+import { AuthContext } from "../../../../../../../AuthContext.js";
+import { WriterContext } from "../../../WriterContext.js";
 import getProfileData from "../../../../../../authentication/features/profile/functions/getProfileData.js";
 
 import classes from "./DetailCollectingForm.module.css";
@@ -11,16 +11,15 @@ import WordCountInput from "./inputs/WordsCountInput.js";
 import EssayTypeInput from "./inputs/EssayTypeInput.js";
 
 const DetailCollectingForm = () => {
-
-  const [profileData,setProfileData] = useState({});
+  const [profileData, setProfileData] = useState({});
   const loginToken = useContext(AuthContext).loginToken.get;
   useEffect(() => {
     getProfileData(loginToken)
       .then((profileData) => {
         setProfileData(profileData);
       })
-      .catch(() => {})
-  }, [loginToken,setProfileData]);
+      .catch(() => {});
+  }, [loginToken, setProfileData]);
 
   const setpendingResult = useContext(WriterContext).pendingResult.set;
   const setResult = useContext(WriterContext).result.set;
@@ -38,7 +37,11 @@ const DetailCollectingForm = () => {
     };
     if (type === "general") reqData.complexity = form.complexity.value;
     else {
-      reqData.profileData = profileData;
+      if (profileData) {
+        reqData.profileData = profileData;
+      } else {
+        return;
+      }
     }
 
     console.log(reqData);
